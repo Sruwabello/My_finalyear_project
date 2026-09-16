@@ -1,0 +1,6 @@
+{
+  "name": "ATBU Registration Assistant",
+  "description": "An AI-powered RAG chatbot that helps newly admitted students at Abubakar Tafawa Balewa University, Bauchi navigate their registration process.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
