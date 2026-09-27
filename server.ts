@@ -163,19 +163,56 @@ Based on the retrieved context above, please answer the student's inquiry. Follo
         return res.end();
       }
 
-      // 4. Call Gemini Streaming API
-      const resultStream = await ai.models.generateContentStream({
-        model: "gemini-3.5-flash",
-        contents: [
-          ...formattedHistory,
-          { role: "user", parts: [{ text: currentPromptText }] }
-        ],
-        config: {
-          systemInstruction,
-          temperature: 0.2, // Low temperature keeps it highly factual
-          topP: 0.9,
-        }
-      });
+      // 4. Call Gemini Streaming API with retry for temporary 503 errors
+let resultStream;
+const maxRetries = 3;
+
+for (let attempt = 0; attempt <= maxRetries; attempt++) {
+  try {
+    resultStream = await ai.models.generateContentStream({
+      model: "gemini-3.5-flash",
+      contents: [
+        ...formattedHistory,
+        { role: "user", parts: [{ text: currentPromptText }] }
+      ],
+      config: {
+        systemInstruction,
+        temperature: 0.2,
+        topP: 0.9,
+      }
+    });
+
+    break;
+  } catch (error: any) {
+    const status = error?.status ?? error?.code;
+
+    // 429 = Gemini quota/rate limit exceeded.
+    // Do not retry because another immediate request will not restore quota.
+    if (status === 429) {
+      console.warn("Gemini quota exceeded (429).");
+      res.write(
+        `data: ${JSON.stringify({
+          error:
+            "The AI assistant has temporarily reached its usage limit. Please try again later."
+        })}\n\n`
+      );
+      return res.end();
+    }
+
+    // Retry temporary Gemini overloads.
+    if (status !== 503 || attempt === maxRetries) {
+      throw error;
+    }
+
+    const delay = 1000 * Math.pow(2, attempt) + Math.random() * 500;
+
+    console.log(
+      `Gemini returned 503. Retry ${attempt + 1}/${maxRetries} in ${Math.round(delay)}ms...`
+    );
+
+    await new Promise((resolve) => setTimeout(resolve, delay));
+  }
+}
 
       // 5. Stream chunks back to client
       for await (const chunk of resultStream) {
