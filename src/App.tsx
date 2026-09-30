@@ -541,11 +541,11 @@ export default function App() {
         {/* Footer info & theme toggle */}
         <div className="p-4 mt-auto border-t border-white/10 bg-white/5">
           <div className="flex items-center gap-3 bg-white/5 p-3 rounded-xl mb-3">
-            <div className="w-8 h-8 rounded-full bg-slate-500 border border-white/20 flex items-center justify-center text-xs font-bold text-white">AS</div>
-            <div className="flex-1 min-w-0">
-              <p className="text-xs font-medium truncate text-white">Aliyu Sambo</p>
-              <p className="text-[10px] text-slate-400 truncate">2024 Entry • RAG Live</p>
-            </div>
+            <div className="w-8 h-8 rounded-full bg-slate-500 border border-white/20 flex items-center justify-center text-xs font-bold text-white">SR</div>
+<div className="flex-1 min-w-0">
+  <p className="text-xs font-medium truncate text-white">SarkinRuwa</p>
+  <p className="text-[10px] text-slate-400 truncate">ATBU Final Year Project • RAG Live</p>
+</div>
             <div className="w-2 h-2 rounded-full bg-green-400"></div>
           </div>
 
