@@ -68,8 +68,17 @@ async function startServer() {
     }
 
     try {
-      // 1. Search the RAG knowledge base for the top 5 chunks
-      const topChunks = await searchKnowledgeBase(message, 5);
+      // 1. Search the RAG knowledge base using recent conversation context
+const recentHistory = history
+  .slice(-4)
+  .map((h: any) => `${h.role}: ${h.text}`)
+  .join("\n");
+
+const retrievalQuery = recentHistory
+  ? `${recentHistory}\nuser: ${message}`
+  : message;
+
+const topChunks = await searchKnowledgeBase(retrievalQuery, 5);
       
       // Determine if we actually found something helpful (simple score threshold for display)
       const relevantCitations = topChunks
