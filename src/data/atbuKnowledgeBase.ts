@@ -192,5 +192,60 @@ Your student ID card is required to gain entry into lecture halls, computer labs
       session: ATBU_SESSION_YEAR,
       keywords: ["matriculation", "gown", "oath", "register", "id card", "ict", "biometrics"]
     }
-  }
+  },
+  {
+    id: "kb-010",
+    category: "Course Registration & Matriculation",
+    title: "2025/2026 Senate-Approved Academic Calendar",
+    content: `The following key dates were approved by the ATBU Senate for the 2025/2026 academic session (Semester 1 dates shown; confirm Semester 2 dates on the portal as the session progresses):
+- Online Registration (100L-500L): 15 Dec 2025 - 5 Jan 2026 (3 weeks, 1 day)
+- Resumption (Freshers, 100L & 200L): 12 Jan 2026
+- Physical Registration II (Freshers): 12-16 Jan 2026 (5 days)
+- Lectures Begin (Freshers): 13 Jan 2026
+- Late Registration with Fine (All Students): 19-23 Jan 2026 (5 days)
+- Matriculation (100L): TBD by JAMB
+- Orientation (100L): day after Matriculation
+- Add & Drop: 18-20 Feb 2026 (3 days)
+- Examinations Begin: 8 Apr - 6 May 2026
+Note: ATBU's academic calendar is revised each session. This calendar applies specifically to 2025/2026 and will be outdated once the next session's calendar is released — always confirm current dates on the official portal.`,
+    metadata: {
+      source: "ATBU Registrar's Office — Senate Approved Academic Calendar, Ref: ATBU/REG/ACAD/SEN/EXAM/I, dated 2nd Jan 2026",
+      session: ATBU_SESSION_YEAR,
+      keywords: ["deadline", "calendar", "registration date", "matriculation date", "add drop", "late registration", "lectures begin"]
+    }
+  },
+  {
+    id: "kb-011",
+    category: "Course Registration & Matriculation",
+    title: "Course Add & Drop",
+    content: `After initial course registration (Form 01) at the start of a semester, ATBU provides an "Add & Drop" window during which students can adjust their registered courses — adding courses they are now offering, or dropping ones they are no longer taking, while staying within the approved credit unit range for their level.
+For the 2025/2026 session, the Add & Drop windows are scheduled for 18-20 February 2026 (Semester 1) and 21-23 July 2026 (Semester 2).
+To add or drop a course:
+1. Log in to your student portal.
+2. Go to the Course Registration section during the active Add & Drop window.
+3. Select the course(s) to add or deselect the course(s) to drop.
+4. Submit and reprint your updated Course Registration Form (Form 01) for endorsement, following the same signature process as initial registration (Level Coordinator, HOD, Dean).
+Add & Drop is only available during the specific dates set by the Senate calendar each semester — it is not available at any time.`,
+    metadata: {
+      source: "ATBU Registrar's Office — Senate Approved Academic Calendar, Ref: ATBU/REG/ACAD/SEN/EXAM/I",
+      session: ATBU_SESSION_YEAR,
+      keywords: ["add drop", "change course", "course registration", "form 01", "credit units"]
+    }
+  },
+  {
+    id: "kb-012",
+    category: "Admission & Screening",
+    title: "Portal Login Issues & Password Reset",
+    content: `If you forget your ATBU portal password, you can reset it directly from the login page:
+1. Go to the portal's "Forgot Password" page.
+2. Enter the email address you registered with your account.
+3. Click "Send Reset Link" — a reset link will be sent to that email address.
+4. Open the email, click the reset link, and set a new password on the page it opens.
+If you no longer have access to that email, or you are using a different ATBU portal (e.g., the SAF-Records academic records portal) and the steps above don't match what you see, contact the ICT Directorate at Yelwa Campus (near the library) or the Gubi ICT center directly for assistance.`,
+    metadata: {
+      source: "ATBU Official Portal — Forgot Password page (atbu.edu.ng)",
+      session: ATBU_SESSION_YEAR,
+      keywords: ["forgot password", "reset password", "login issue", "locked out", "portal"]
+    }
+  },
 ];
