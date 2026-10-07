@@ -68,14 +68,16 @@ async function startServer() {
     }
 
     try {
-      // 1. Search the RAG knowledge base using recent conversation context
-const recentHistory = history
-  .slice(-4)
-  .map((h: any) => `${h.role}: ${h.text}`)
-  .join("\n");
+// Only use USER turns for retrieval context — assistant replies are too long/noisy
+// and dilute the embedding signal.
+const recentUserHistory = history
+  .filter((h: any) => h.role === "user")
+  .slice(-2)
+  .map((h: any) => h.text)
+  .join(" ");
 
-const retrievalQuery = recentHistory
-  ? `${recentHistory}\nuser: ${message}`
+const retrievalQuery = recentUserHistory
+  ? `${recentUserHistory} ${message}`
   : message;
 
 const topChunks = await searchKnowledgeBase(retrievalQuery, 5);

@@ -53,8 +53,8 @@ Generate your Admission Letter and payment invoice for online screening. Ensure 
     category: "Admission & Screening",
     title: "Physical Screening & Campus Locations",
     content: `After obtaining Online Clearance Approval, fresh students must proceed to their respective campuses for physical screening and credentials verification.
-- Gubi Campus (along Kano Road, Bauchi): Faculties of Agriculture, Engineering, Science, Technology Education, Joint College of Medicine, and Veterinary Medicine.
-- Yelwa Campus (within Bauchi metropolitan): Faculties of Environmental Technology and Management Sciences.
+- Gubi Campus (along Kano Road, Bauchi): Faculties of Agriculture, Management Sciences, Computing, Science, Technology Education, Joint College of Medicine, and Veterinary Medicine.
+- Yelwa Campus (within Bauchi metropolitan): Faculties of Environmental Technology and Engineering.
 What to bring:
 Proceed to the designated Faculty Screening Room with a green cardboard file containing:
 - Original and three (3) photocopies of all uploaded credentials.

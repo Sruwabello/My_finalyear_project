@@ -1,27 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
-import { 
-  motion, 
-  AnimatePresence 
+import {
+  motion,
+  AnimatePresence
 } from "motion/react";
-import { 
-  School, 
-  Send, 
-  RefreshCw, 
-  FileText, 
-  CheckCircle2, 
-  HelpCircle, 
-  ExternalLink, 
-  ChevronRight, 
-  Info, 
-  Sparkles, 
-  BookOpen, 
-  CreditCard, 
-  Moon, 
-  Sun, 
-  Menu, 
-  X, 
-  Layers, 
-  Loader2, 
+import {
+  School,
+  Send,
+  RefreshCw,
+  FileText,
+  CheckCircle2,
+  HelpCircle,
+  ExternalLink,
+  ChevronRight,
+  Info,
+  Sparkles,
+  BookOpen,
+  CreditCard,
+  Moon,
+  Sun,
+  Menu,
+  X,
+  Layers,
+  Loader2,
   Database,
   ArrowRight,
   MessageSquare,
@@ -29,7 +29,9 @@ import {
   Globe,
   UserCheck,
   Laptop,
-  Link2
+  Link2,
+  GraduationCap,
+  Award
 } from "lucide-react";
 import { KBChunk, Citation, Message, RAGStatus } from "./types";
 
@@ -40,6 +42,7 @@ export default function App() {
   const [ragStatus, setRagStatus] = useState<RAGStatus | null>(null);
   const [kbChunks, setKbChunks] = useState<KBChunk[]>([]);
   const [selectedCitation, setSelectedCitation] = useState<KBChunk | null>(null);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [activeTab, setActiveTab] = useState<"all" | "screening" | "fees" | "docs" | "course">("all");
@@ -232,11 +235,11 @@ export default function App() {
       setMessages((prev) =>
         prev.map((msg) =>
           msg.id === assistantMessageId
-            ? { 
-                ...msg, 
-                text: "❌ Service unavailable. Please check your internet connection and ensure the server has a valid GEMINI_API_KEY configured in the secrets dashboard.", 
-                error: true 
-              }
+            ? {
+              ...msg,
+              text: "❌ Service unavailable. Please check your internet connection and ensure the server has a valid GEMINI_API_KEY configured in the secrets dashboard.",
+              error: true
+            }
             : msg
         )
       );
@@ -288,7 +291,7 @@ export default function App() {
     const paragraphs = text.split("\n\n");
     return paragraphs.map((p, pIdx) => {
       const trimmed = p.trim();
-      
+
       // Check if bullet list
       if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
         const items = trimmed.split("\n").filter(l => l.trim().startsWith("- ") || l.trim().startsWith("* "));
@@ -344,7 +347,7 @@ export default function App() {
 
   return (
     <div className="flex h-screen bg-[#F1F5F9] dark:bg-slate-950 text-slate-950 dark:text-white overflow-hidden font-sans">
-      
+
       {/* SIDEBAR FOR DESKTOP */}
       <aside className="hidden lg:flex flex-col w-80 bg-atbu-navy text-white border-r border-atbu-gold/20 shrink-0">
         <div className="p-6 border-b border-atbu-gold/10 flex items-center justify-between">
@@ -388,7 +391,7 @@ export default function App() {
             </div>
           </div>
 
-          <button 
+          <button
             onClick={handleReindex}
             disabled={ragStatus?.isInitializing}
             className="w-full py-2 px-3 bg-white/10 hover:bg-white/15 transition text-[11px] text-slate-100 font-semibold rounded-lg border border-white/10 flex items-center justify-center gap-1.5 disabled:opacity-50"
@@ -401,9 +404,9 @@ export default function App() {
         {/* Interactive FAQ category quick selection */}
         <div className="flex-1 overflow-y-auto px-4 py-2 space-y-4">
           <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Categories</div>
-          
+
           <div className="space-y-1">
-            <button 
+            <button
               onClick={() => setActiveTab("screening")}
               className={`w-full text-left px-3 py-2.5 rounded-xl text-xs transition flex items-center justify-between ${activeTab === "screening" ? 'bg-white/10 text-white border border-white/5 font-semibold' : 'text-slate-300 hover:bg-white/5'}`}
             >
@@ -414,7 +417,7 @@ export default function App() {
               <ChevronRight className="w-3.5 h-3.5 opacity-50" />
             </button>
 
-            <button 
+            <button
               onClick={() => setActiveTab("fees")}
               className={`w-full text-left px-3 py-2.5 rounded-xl text-xs transition flex items-center justify-between ${activeTab === "fees" ? 'bg-white/10 text-white border border-white/5 font-semibold' : 'text-slate-300 hover:bg-white/5'}`}
             >
@@ -425,7 +428,7 @@ export default function App() {
               <ChevronRight className="w-3.5 h-3.5 opacity-50" />
             </button>
 
-            <button 
+            <button
               onClick={() => setActiveTab("docs")}
               className={`w-full text-left px-3 py-2.5 rounded-xl text-xs transition flex items-center justify-between ${activeTab === "docs" ? 'bg-white/10 text-white border border-white/5 font-semibold' : 'text-slate-300 hover:bg-white/5'}`}
             >
@@ -436,7 +439,7 @@ export default function App() {
               <ChevronRight className="w-3.5 h-3.5 opacity-50" />
             </button>
 
-            <button 
+            <button
               onClick={() => setActiveTab("course")}
               className={`w-full text-left px-3 py-2.5 rounded-xl text-xs transition flex items-center justify-between ${activeTab === "course" ? 'bg-white/10 text-white border border-white/5 font-semibold' : 'text-slate-300 hover:bg-white/5'}`}
             >
@@ -455,7 +458,7 @@ export default function App() {
               <span>Official Resources</span>
             </div>
             <div className="grid grid-cols-1 gap-1.5">
-              <a 
+              <a
                 href="http://atbu.edu.ng/"
                 target="_blank"
                 rel="noreferrer"
@@ -467,8 +470,8 @@ export default function App() {
                 </span>
                 <ExternalLink className="w-3 h-3 opacity-50 group-hover:opacity-100 animate-pulse" />
               </a>
-              
-              <a 
+
+              <a
                 href="http://atbu.safrecords.com/"
                 target="_blank"
                 rel="noreferrer"
@@ -481,7 +484,7 @@ export default function App() {
                 <ExternalLink className="w-3 h-3 opacity-50 group-hover:opacity-100 animate-pulse" />
               </a>
 
-              <a 
+              <a
                 href="http://atbu.edu.ng/#/admissions"
                 target="_blank"
                 rel="noreferrer"
@@ -494,7 +497,7 @@ export default function App() {
                 <ExternalLink className="w-3 h-3 opacity-50 group-hover:opacity-100" />
               </a>
 
-              <a 
+              <a
                 href="http://atbu.edu.ng/#/bursary"
                 target="_blank"
                 rel="noreferrer"
@@ -507,7 +510,7 @@ export default function App() {
                 <ExternalLink className="w-3 h-3 opacity-50 group-hover:opacity-100" />
               </a>
 
-              <a 
+              <a
                 href="http://atbu.edu.ng/#/ict"
                 target="_blank"
                 rel="noreferrer"
@@ -542,22 +545,29 @@ export default function App() {
         <div className="p-4 mt-auto border-t border-white/10 bg-white/5">
           <div className="flex items-center gap-3 bg-white/5 p-3 rounded-xl mb-3">
             <div className="w-8 h-8 rounded-full bg-slate-500 border border-white/20 flex items-center justify-center text-xs font-bold text-white">SR</div>
-<div className="flex-1 min-w-0">
-  <p className="text-xs font-medium truncate text-white">SarkinRuwa</p>
-  <p className="text-[10px] text-slate-400 truncate">ATBU Final Year Project • RAG Live</p>
-</div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-medium truncate text-white">SarkinRuwa</p>
+              <p className="text-[10px] text-slate-400 truncate">ATBU Final Year Project • RAG Live</p>
+            </div>
             <div className="w-2 h-2 rounded-full bg-green-400"></div>
           </div>
 
+          <button
+            onClick={() => setIsAboutOpen(true)}
+            className="w-full flex items-center gap-2 text-xs font-semibold text-slate-300 hover:text-atbu-gold transition py-2 mb-2 border-t border-white/10 pt-3"
+          >
+            <Info className="w-3.5 h-3.5" />
+            <span>About This Project</span>
+          </button>
           <div className="flex items-center justify-between">
-            <button 
+            <button
               onClick={handleReset}
               className="flex items-center gap-2 text-xs font-semibold text-atbu-gold hover:text-atbu-gold-hover transition py-1"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>Reset Chat</span>
             </button>
-            <button 
+            <button
               onClick={toggleDarkMode}
               className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition"
               aria-label="Toggle dark mode"
@@ -576,7 +586,7 @@ export default function App() {
         {isSidebarOpen && (
           <>
             {/* Backdrop */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
               exit={{ opacity: 0 }}
@@ -584,7 +594,7 @@ export default function App() {
               className="fixed inset-0 bg-black z-40 lg:hidden"
             />
             {/* Slide-out drawer */}
-            <motion.aside 
+            <motion.aside
 
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
@@ -602,7 +612,7 @@ export default function App() {
                     <p className="text-[10px] text-atbu-gold/70 uppercase tracking-widest leading-none mt-0.5">Registration Hub</p>
                   </div>
                 </div>
-                <button 
+                <button
                   onClick={() => setIsSidebarOpen(false)}
                   className="p-1 rounded bg-white/10 hover:bg-white/15 transition"
                 >
@@ -648,7 +658,7 @@ export default function App() {
                     <span>Official Resources</span>
                   </div>
                   <div className="grid grid-cols-1 gap-1.5">
-                    <a 
+                    <a
                       href="http://atbu.edu.ng/"
                       target="_blank"
                       rel="noreferrer"
@@ -660,8 +670,8 @@ export default function App() {
                       </span>
                       <ExternalLink className="w-3 h-3 opacity-50 group-hover:opacity-100" />
                     </a>
-                    
-                    <a 
+
+                    <a
                       href="http://atbu.safrecords.com/"
                       target="_blank"
                       rel="noreferrer"
@@ -674,7 +684,7 @@ export default function App() {
                       <ExternalLink className="w-3 h-3 opacity-50 group-hover:opacity-100" />
                     </a>
 
-                    <a 
+                    <a
                       href="http://atbu.edu.ng/#/admissions"
                       target="_blank"
                       rel="noreferrer"
@@ -687,7 +697,7 @@ export default function App() {
                       <ExternalLink className="w-3 h-3 opacity-50 group-hover:opacity-100" />
                     </a>
 
-                    <a 
+                    <a
                       href="http://atbu.edu.ng/#/bursary"
                       target="_blank"
                       rel="noreferrer"
@@ -700,7 +710,7 @@ export default function App() {
                       <ExternalLink className="w-3 h-3 opacity-50 group-hover:opacity-100" />
                     </a>
 
-                    <a 
+                    <a
                       href="http://atbu.edu.ng/#/ict"
                       target="_blank"
                       rel="noreferrer"
@@ -735,7 +745,7 @@ export default function App() {
               </div>
 
               <div className="p-4 border-t border-white/10 flex items-center justify-between bg-white/5">
-                <button 
+                <button
                   onClick={() => {
                     handleReset();
                     setIsSidebarOpen(false);
@@ -745,7 +755,7 @@ export default function App() {
                   <RefreshCw className="w-3.5 h-3.5" />
                   Reset Chat
                 </button>
-                <button 
+                <button
                   onClick={toggleDarkMode}
                   className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 transition"
                 >
@@ -759,11 +769,11 @@ export default function App() {
 
       {/* MAIN CHAT AREA */}
       <main className="flex-1 flex flex-col h-full bg-[#F1F5F9] dark:bg-slate-950 relative overflow-hidden">
-        
+
         {/* MOBILE TOP NAVIGATION HEADER */}
         <header className="flex lg:hidden items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm z-30 shrink-0">
           <div className="flex items-center gap-3">
-            <button 
+            <button
               onClick={() => setIsSidebarOpen(true)}
               className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition"
               aria-label="Open sidebar"
@@ -796,9 +806,9 @@ export default function App() {
               <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse" />
               <span>RAG Engine Online</span>
             </div>
-            <a 
-              href="https://portal.atbu.edu.ng" 
-              target="_blank" 
+            <a
+              href="https://portal.atbu.edu.ng"
+              target="_blank"
               referrerPolicy="no-referrer"
               className="text-xs font-bold text-atbu-navy hover:text-atbu-navy-dark dark:text-atbu-gold dark:hover:text-atbu-gold-hover flex items-center gap-1 transition"
             >
@@ -811,11 +821,11 @@ export default function App() {
         {/* CHAT MESSAGES PANEL */}
         <div className="flex-1 overflow-y-auto px-4 py-6 md:px-8 space-y-6">
           <div className="max-w-3xl mx-auto h-full flex flex-col">
-            
+
             {messages.length === 0 ? (
               /* EMPTY LANDING / HERO GREETING SCREEN */
               <div className="my-auto py-8 flex flex-col items-center text-center space-y-8">
-                
+
                 <motion.div
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
@@ -840,7 +850,7 @@ export default function App() {
                     Welcome to ATBU Bauchi!
                   </h2>
                   <p className="text-slate-600 dark:text-slate-400 text-sm md:text-base leading-relaxed max-w-md mx-auto">
-                    Avoid registration pitfalls, payment scams, and long queues. This AI-powered assistant answers your clearance questions using the 
+                    Avoid registration pitfalls, payment scams, and long queues. This AI-powered assistant answers your clearance questions using the
                     official <strong className="text-atbu-navy dark:text-atbu-gold">ATBU Registrar Knowledge Base</strong>.
                   </p>
                 </div>
@@ -976,7 +986,7 @@ export default function App() {
                     className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                   >
                     <div className={`flex gap-3.5 max-w-[85%] ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
-                      
+
                       {/* Avatar Icon */}
                       <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 shadow-md ${msg.role === "user" ? "bg-atbu-navy text-white font-bold text-xs" : "bg-gradient-to-br from-atbu-navy to-atbu-navy-dark border border-atbu-gold/20 text-atbu-gold"}`}>
                         {msg.role === "user" ? "U" : <School className="w-5 h-5" />}
@@ -985,7 +995,7 @@ export default function App() {
                       {/* Bubble box */}
                       <div className="space-y-2">
                         <div className={`p-4.5 rounded-2xl border shadow-sm leading-relaxed ${msg.role === "user" ? "bg-atbu-navy text-white border-atbu-navy rounded-tr-none" : "bg-white dark:bg-slate-900 text-slate-900 dark:text-white border-slate-200 dark:border-slate-800 rounded-tl-none"}`}>
-                          
+
                           {/* Rich Text response rendering */}
                           <div className="text-sm prose dark:prose-invert max-w-none break-words">
                             {msg.text ? (
@@ -1063,7 +1073,7 @@ export default function App() {
         {/* BOTTOM INPUT AND CONTROLS SECTION */}
         <div className="p-4 md:p-6 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 z-25 shrink-0">
           <div className="max-w-3xl mx-auto space-y-3">
-            
+
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -1081,7 +1091,7 @@ export default function App() {
                   maxLength={150}
                   disabled={isGenerating}
                 />
-                
+
                 {/* Character count limit badge */}
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 font-bold">
                   {input.length}/150
@@ -1120,17 +1130,17 @@ export default function App() {
         {selectedCitation && (
           <>
             {/* Backdrop */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedCitation(null)}
               className="fixed inset-0 bg-black/60 z-50"
             />
-            
+
             {/* Center Modal */}
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-hidden pointer-events-none">
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.95, opacity: 0, y: 20 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.95, opacity: 0, y: 20 }}
@@ -1150,7 +1160,7 @@ export default function App() {
                       </h3>
                     </div>
                   </div>
-                  <button 
+                  <button
                     onClick={() => setSelectedCitation(null)}
                     className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-750 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
                   >
@@ -1198,7 +1208,102 @@ export default function App() {
           </>
         )}
       </AnimatePresence>
+      {/* ABOUT THIS PROJECT MODAL */}
+      <AnimatePresence>
+        {isAboutOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsAboutOpen(false)}
+              className="fixed inset-0 bg-black/60 z-50"
+            />
 
+            {/* Center Modal */}
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-hidden pointer-events-none">
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                transition={{ type: "spring", damping: 25, stiffness: 220 }}
+                className="w-full max-w-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] pointer-events-auto"
+              >
+                {/* Modal Header */}
+                <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-950/25 shrink-0">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 bg-atbu-navy text-atbu-gold rounded-lg flex items-center justify-center shadow-sm">
+                      <GraduationCap className="w-5 h-5 text-atbu-gold" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] uppercase text-atbu-navy dark:text-atbu-gold font-bold tracking-widest">Final Year Project</span>
+                      <h3 className="font-bold text-slate-900 dark:text-white text-sm md:text-base leading-snug">
+                        About This Project
+                      </h3>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setIsAboutOpen(false)}
+                    className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-750 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                  >
+                    <X className="w-4.5 h-4.5 text-slate-500 hover:text-slate-800 dark:hover:text-white" />
+                  </button>
+                </div>
+
+                {/* Modal Content */}
+                <div className="p-6 overflow-y-auto space-y-5">
+                  <div>
+                    <span className="text-[9px] uppercase tracking-wider font-bold text-slate-400 block mb-1">Project Title</span>
+                    <h4 className="font-bold text-atbu-navy dark:text-atbu-gold text-sm leading-snug">
+                      Design and Implementation of a Chatbot that Guides Newly Admitted Students on Their Registration Process (ATBU)
+                    </h4>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3 text-xs">
+                    <div className="bg-slate-50 dark:bg-slate-950 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
+                      <span className="text-slate-400 block text-[9px] uppercase tracking-wider font-bold mb-0.5">Student</span>
+                      <strong className="text-atbu-navy dark:text-slate-200">Sulaiman Bello Muhammad</strong>
+                      <div className="text-slate-500 dark:text-slate-400 mt-0.5">20/56618U/5</div>
+                    </div>
+                    <div className="bg-slate-50 dark:bg-slate-950 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
+                      <span className="text-slate-400 block text-[9px] uppercase tracking-wider font-bold mb-0.5">Department</span>
+                      <strong className="text-atbu-navy dark:text-slate-200">Management & Information Technology</strong>
+                      <div className="text-slate-500 dark:text-slate-400 mt-0.5">500 Level</div>
+                    </div>
+                    <div className="bg-slate-50 dark:bg-slate-950 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
+                      <span className="text-slate-400 block text-[9px] uppercase tracking-wider font-bold mb-0.5">Supervisor</span>
+                      <strong className="text-atbu-navy dark:text-slate-200">Dr. Hussaini Mamman</strong>
+                    </div>
+                    <div className="bg-slate-50 dark:bg-slate-950 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
+                      <span className="text-slate-400 block text-[9px] uppercase tracking-wider font-bold mb-0.5">Session</span>
+                      <strong className="text-atbu-navy dark:text-slate-200">2025/2026</strong>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+                    <span className="text-[9px] uppercase tracking-wider font-bold text-slate-400 flex items-center gap-1.5 mb-2">
+                      <Award className="w-3.5 h-3.5 text-atbu-gold" />
+                      Problem Statement
+                    </span>
+                    <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
+                      Registration at ATBU is often slowed by information scattered across portals, notice boards, and staff, long queues at administrative offices, and limited real-time support — especially during peak periods. Static FAQ pages quickly go outdated, rule-based bots can't handle varied phrasing, and general-purpose AI models risk generating inaccurate, fabricated answers. This project addresses these gaps with a Retrieval-Augmented Generation (RAG) chatbot that grounds every response in official ATBU registrar documents — delivering accurate, context-aware guidance to newly admitted students in real time.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Modal Footer */}
+                <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/25 flex items-center justify-center shrink-0">
+                  <div className="text-[10px] text-slate-400 font-semibold flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-green-500" />
+                    <span>Abubakar Tafawa Balewa University (ATBU), Bauchi — {ragStatus?.sessionYear || "2025/2026"}</span>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
