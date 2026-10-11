@@ -744,6 +744,24 @@ export default function App() {
                 </div>
               </div>
 
+              <div className="flex items-center gap-3 bg-white/5 p-3 rounded-xl mx-4 mb-3">
+                <div className="w-8 h-8 rounded-full bg-slate-500 border border-white/20 flex items-center justify-center text-xs font-bold text-white">SR</div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-medium truncate text-white">SarkinRuwa</p>
+                  <p className="text-[10px] text-slate-400 truncate">ATBU Final Year Project • RAG Live</p>
+                </div>
+                <div className="w-2 h-2 rounded-full bg-green-400"></div>
+              </div>
+              <button
+                onClick={() => {
+                  setIsAboutOpen(true);
+                  setIsSidebarOpen(false);
+                }}
+                className="w-full flex items-center gap-2 text-xs font-semibold text-slate-300 hover:text-atbu-gold transition px-4 py-3 border-t border-white/10 bg-white/5"
+              >
+                <Info className="w-3.5 h-3.5" />
+                <span>About This Project</span>
+              </button>
               <div className="p-4 border-t border-white/10 flex items-center justify-between bg-white/5">
                 <button
                   onClick={() => {
